@@ -1,0 +1,16 @@
+# vim: ft=dockerfile
+
+FROM openjdk:8-jre-alpine
+
+RUN apk add libc6-compat  \
+  && mkdir -p /opt/embulk/bin \
+  && wget https://dl.embulk.org/embulk-latest.jar -O /opt/embulk/bin/embulk \
+  && chmod +x /opt/embulk/bin/embulk \
+  && PATH=$PATH:/opt/embulk/bin \
+  && embulk gem install \
+    embulk-filter-column \
+    embulk-input-jdbc \
+    embulk-input-mysql \
+    embulk-output-mysql
+
+CMD embulk --help

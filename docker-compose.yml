@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  embulk-container:
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile.embulk
+    command: embulk guess
+    volumes:
+      - .:/workspace
+    environment:
+      TZ: Japan
